@@ -13,6 +13,9 @@
 //  快速生成颜色
 #define NXCustomColor(r , g, b, a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0  blue:(b)/255.0  alpha:(a)/1.0 ]
 
+#define kShowAnimationDuration  1.0   // 动画显示执行的时间
+#define kFadeAnimationDuration  0.3   // 动画消失执行的时间
+
 @implementation NXPopAlertViewLabel
 
 
@@ -54,12 +57,12 @@
     self.center = CGPointMake(kScreenWidth *0.5, kScreenHeight * offset);
     
     //  动画
-    [UIView animateWithDuration:1.0 animations:^{
+    [UIView animateWithDuration:kShowAnimationDuration animations:^{
         self.alpha = alpha;
         [mainWindow addSubview:self];
     } completion:^(BOOL finished) {
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kFadeAnimationDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
             [UIView animateWithDuration:1.0 animations:^{
                 self.alpha = 0;
